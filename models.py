@@ -172,7 +172,7 @@ class EncoderDecoder(nn.Module):
                                dropout, self.embedding)
         self.num_layers = num_layers
 
-    def load_pretrained_embedding(path):
+    def load_pretrained_embedding(self, path):
         if os.path.isfile(path):
             w = torch.load(path)
             self.embedding.weight.data.copy_(w)
