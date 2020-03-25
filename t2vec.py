@@ -114,7 +114,7 @@ args.bucketsize = [(20,30),(30,30),(30,50),(50,50),(50,70),(70,70),(70,100),(100
 if args.mode == 1:
     evaluator(args)
 elif args.mode == 2:
-    with torch.no_grad:
+    with torch.no_grad():
         t2vec(args)
 else:
     train(args)
