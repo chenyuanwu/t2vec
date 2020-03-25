@@ -39,14 +39,15 @@ else
 end
 
 
+prefix = "exp1"
 do_split = true
 start = 1_000_000+20_000
 num_query = 1000
 num_db = 100_000
-querydbfile = joinpath(datapath, "querydb.h5")
-tfile = joinpath(datapath, "trj.t")
-labelfile = joinpath(datapath, "trj.label")
-vecfile = joinpath(datapath, "trj.h5")
+querydbfile = joinpath(datapath, "$prefix-querydb.h5")
+tfile = joinpath(datapath, "$prefix-trj.t")
+labelfile = joinpath(datapath, "$prefix-trj.label")
+#vecfile = joinpath(datapath, "$prefix-trj.h5")
 
 createQueryDB("$datapath/$cityname.h5", start, num_query, num_db,
               (x, y)->(x, y),

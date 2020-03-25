@@ -2,6 +2,7 @@
 import argparse
 from train import train
 from evaluate import evaluator, t2vec
+import torch
 
 ## toy_data
 ## python t2vec.py -data="toy_data" -hidden_size=64 -embedding_size=64 -save_freq=100 -vocab_size=43 -epochs 20
@@ -23,6 +24,9 @@ parser.add_argument("-data", default="data",
 
 parser.add_argument("-checkpoint", default="checkpoint.pt",
     help="The saved checkpoint")
+
+parser.add_argument("-prefix", default="exp",
+    help="Prefix of trjfile")
 
 parser.add_argument("-pretrained_embedding", default=None,
     help="Path to the pretrained word (cell) embedding")
@@ -110,6 +114,7 @@ args.bucketsize = [(20,30),(30,30),(30,50),(50,50),(50,70),(70,70),(70,100),(100
 if args.mode == 1:
     evaluator(args)
 elif args.mode == 2:
-    t2vec(args)
+    with torch.no_grad:
+        t2vec(args)
 else:
     train(args)
