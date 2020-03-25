@@ -1,4 +1,5 @@
 using HDF5
+using Statistics
 using DelimitedFiles
 using Distances
 include("utils.jl")
