@@ -172,7 +172,7 @@ function createTLabel(region::SpatialRegion, trjfile::String,
         close(tf)
     end
     writedlm(labelfile, label)
-    length(label)
+    nothing
 end
 
 function createEDLCSSInput(querydbfile::String; tfile="edlcss.t", labelfile="edlcss.label")
