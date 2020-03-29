@@ -1,3 +1,47 @@
 INFO:root:Start training @ Mon Aug 26 11:12:45 2019
 INFO:root:Start training @ Mon Aug 26 11:20:23 2019
 INFO:root:Start training @ Mon Aug 26 11:21:49 2019
+INFO:root:Start training @ Sun Mar 22 09:32:55 2020
+INFO:root:Best model with loss 54.99020573161507 at iteration 1000 @ Sun Mar 22 09:35:26 2020
+INFO:root:Best model with loss 30.16360031025913 at iteration 2000 @ Sun Mar 22 09:37:55 2020
+INFO:root:Best model with loss 22.932055388981656 at iteration 3000 @ Sun Mar 22 09:40:25 2020
+INFO:root:Best model with loss 19.682213001560914 at iteration 4000 @ Sun Mar 22 09:42:55 2020
+INFO:root:Best model with loss 17.90982958548618 at iteration 5000 @ Sun Mar 22 09:45:26 2020
+INFO:root:Best model with loss 16.633616617051555 at iteration 6000 @ Sun Mar 22 09:48:04 2020
+INFO:root:Best model with loss 15.746449792054912 at iteration 7000 @ Sun Mar 22 09:50:40 2020
+INFO:root:Best model with loss 15.334501394729104 at iteration 8000 @ Sun Mar 22 09:53:13 2020
+INFO:root:Best model with loss 14.77340364574589 at iteration 9000 @ Sun Mar 22 09:55:52 2020
+INFO:root:Best model with loss 14.192507102769563 at iteration 10000 @ Sun Mar 22 09:58:32 2020
+INFO:root:Best model with loss 13.871332178052084 at iteration 11000 @ Sun Mar 22 10:01:07 2020
+INFO:root:Best model with loss 13.652511156003818 at iteration 12000 @ Sun Mar 22 10:03:40 2020
+INFO:root:Best model with loss 13.351715537857304 at iteration 13000 @ Sun Mar 22 10:06:07 2020
+INFO:root:Best model with loss 13.286850554166573 at iteration 14000 @ Sun Mar 22 10:08:32 2020
+INFO:root:Best model with loss 12.90709352848523 at iteration 15000 @ Sun Mar 22 10:10:55 2020
+INFO:root:Best model with loss 12.603406487130618 at iteration 17000 @ Sun Mar 22 10:15:57 2020
+INFO:root:Best model with loss 12.430180051379127 at iteration 18000 @ Sun Mar 22 10:18:20 2020
+INFO:root:Best model with loss 12.369716769257613 at iteration 20000 @ Sun Mar 22 10:23:07 2020
+INFO:root:Best model with loss 12.220378944047201 at iteration 21000 @ Sun Mar 22 10:25:31 2020
+INFO:root:Best model with loss 12.033348447841583 at iteration 22000 @ Sun Mar 22 10:27:57 2020
+INFO:root:Best model with loss 11.944603262339303 at iteration 25000 @ Sun Mar 22 10:35:24 2020
+INFO:root:Best model with loss 11.712609755252812 at iteration 26000 @ Sun Mar 22 10:37:58 2020
+INFO:root:Best model with loss 11.650970781065787 at iteration 28000 @ Sun Mar 22 10:43:11 2020
+INFO:root:Best model with loss 11.551323739118311 at iteration 29000 @ Sun Mar 22 10:45:44 2020
+INFO:root:Best model with loss 11.482012066663508 at iteration 30000 @ Sun Mar 22 10:48:17 2020
+INFO:root:Best model with loss 11.45996621358702 at iteration 32000 @ Sun Mar 22 10:53:26 2020
+INFO:root:Best model with loss 11.430406547662978 at iteration 33000 @ Sun Mar 22 10:56:00 2020
+INFO:root:Best model with loss 11.295165835638329 at iteration 34000 @ Sun Mar 22 10:58:34 2020
+INFO:root:Best model with loss 11.256077939118219 at iteration 35000 @ Sun Mar 22 11:01:15 2020
+INFO:root:Best model with loss 11.160748526929329 at iteration 38000 @ Sun Mar 22 11:08:56 2020
+INFO:root:Best model with loss 11.121271785419104 at iteration 39000 @ Sun Mar 22 11:11:30 2020
+INFO:root:Best model with loss 11.016217117710351 at iteration 44000 @ Sun Mar 22 11:24:21 2020
+INFO:root:Best model with loss 10.978143321295066 at iteration 48000 @ Sun Mar 22 11:34:32 2020
+INFO:root:Best model with loss 10.970508614970939 at iteration 49000 @ Sun Mar 22 11:37:11 2020
+INFO:root:Best model with loss 10.871193988912996 at iteration 50000 @ Sun Mar 22 11:39:36 2020
+INFO:root:Best model with loss 10.854595935788742 at iteration 51000 @ Sun Mar 22 11:42:12 2020
+INFO:root:Best model with loss 10.815621102049791 at iteration 55000 @ Sun Mar 22 11:52:11 2020
+INFO:root:Best model with loss 10.733097836805051 at iteration 60000 @ Sun Mar 22 12:04:13 2020
+INFO:root:Best model with loss 10.70844690109734 at iteration 65000 @ Sun Mar 22 12:16:23 2020
+INFO:root:Best model with loss 10.686679798188159 at iteration 72000 @ Sun Mar 22 12:33:49 2020
+INFO:root:Best model with loss 10.626580525993049 at iteration 75000 @ Sun Mar 22 12:41:30 2020
+INFO:root:Best model with loss 10.543419528986686 at iteration 84000 @ Sun Mar 22 13:04:38 2020
+INFO:root:Best model with loss 10.511548403910261 at iteration 103000 @ Sun Mar 22 13:54:10 2020
