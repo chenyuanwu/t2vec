@@ -38,20 +38,29 @@ else
     println("Cannot find $paramfile")
 end
 
-
-prefix = "exp1"
-do_split = true
+## Creating test files for TSNE.
 start = 1_000_000+20_000
-num_query = 1000
-num_db = 100_000
-querydbfile = joinpath(datapath, "$prefix-querydb.h5")
-tfile = joinpath(datapath, "$prefix-trj.t")
-labelfile = joinpath(datapath, "$prefix-trj.label")
-#vecfile = joinpath(datapath, "$prefix-trj.h5")
+length = 10
+variance = 15
+tfile = joinpath(datapath, "len$length-var$variance-trj.t")
+labelfile = joinpath(datapath, "len$length-var$variance-trj.label")
 
-createQueryDB("$datapath/$cityname.h5", start, num_query, num_db,
-              (x, y)->(x, y),
-              (x, y)->(x, y);
-              do_split=do_split,
-              querydbfile=querydbfile)
-createTLabel(region, querydbfile; tfile=tfile, labelfile=labelfile)
+createTLabel(region, "$datapath/$cityname.h5", downsamplingDistort, start, length; tfile=tfile, labelfile=labelfile)
+
+## Creating test files for similarity computation.
+# prefix = "exp1"
+# do_split = true
+# start = 1_000_000+20_000
+# num_query = 1000
+# num_db = 100_000
+# querydbfile = joinpath(datapath, "$prefix-querydb.h5")
+# tfile = joinpath(datapath, "$prefix-trj.t")
+# labelfile = joinpath(datapath, "$prefix-trj.label")
+# vecfile = joinpath(datapath, "$prefix-trj.h5")
+
+# createQueryDB("$datapath/$cityname.h5", start, num_query, num_db,
+#               (x, y)->(x, y),
+#               (x, y)->(x, y);
+#               do_split=do_split,
+#               querydbfile=querydbfile)
+# createTLabel(region, querydbfile; tfile=tfile, labelfile=labelfile)

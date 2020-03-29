@@ -2,7 +2,7 @@ using HDF5
 using NearestNeighbors
 using Distances
 using DelimitedFiles
-#include("../preprocessing/utils.jl")
+include("../preprocessing/utils.jl")
 include("../preprocessing/SpatialRegionTools.jl")
 
 function uniformsplit(trip::Matrix{Float64}, timestamp::Vector{Float64})
@@ -125,6 +125,53 @@ function createTLabel(region::SpatialRegion, querydbfile::String;
     end
     writedlm(labelfile, label)
     close(querydbf)
+    length(label)
+end
+
+"""
+Creating trj.t trj.label for t2vec(). Useful for downstream tasks.
+"""
+function createTLabel(region::SpatialRegion, trjfile::String,
+                      injectnoise::Function,
+                      start::Int, querysize::Int;
+                      tfile="trj.t", labelfile="trj.label",
+                      min_length=30, max_length=100,
+                      nsplit=5)
+    seq2str(seq) = join(map(string, seq), " ") * "\n"
+    println("Vocabulary size $(region.vocab_size)...")
+
+    nquery = 0
+    label = Int[]
+    h5open(trjfile, "r") do f
+        tf = open(tfile, "w")
+        num = read(attrs(f)["num"])
+        for i = start:num
+            trip = read(f["/trips/$i"])
+            timestamp = read(f["/timestamps/$i"])
+            if nquery < querysize
+                if 2min_length <= size(trip, 2) <= 2max_length
+                    nquery += 1
+                    trip1, timestamp1, trip2, timestamp2 = uniformsplit(trip, timestamp)
+                    noisetrips = injectnoise(trip1, nsplit)
+                    for noisetrip in noisetrips
+                        seq = trip2seq(region, noisetrip)
+                        write(tf, seq2str(seq))
+                        push!(label, i)
+                    end
+                    noisetrips = injectnoise(trip2, nsplit)
+                    for noisetrip in noisetrips
+                        seq = trip2seq(region, noisetrip)
+                        write(tf, seq2str(seq))
+                        push!(label, i)
+                    end
+                end
+            else
+                break
+            end
+        end
+        close(tf)
+    end
+    writedlm(labelfile, label)
     length(label)
 end
 
