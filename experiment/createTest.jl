@@ -39,7 +39,7 @@ else
 end
 
 ## Creating trj files for visulization in TSNE experiments
-idxs = [1020159, 1020151, 1020149]
+idxs = [1020159, 1020151, 1020149, 1020229, 1020203, 1020209]
 tfile = joinpath(datapath, "trips.h5")
 extractTrips(region, "$datapath/$cityname.h5", idxs; tfile=tfile)
 
