@@ -42,7 +42,7 @@ end
 start = 1_000_000+20_000
 length = 100
 variance = 1
-do_split = true
+do_split = false
 tfile = joinpath(datapath, "len$length-var$variance-trj.t")
 labelfile = joinpath(datapath, "len$length-var$variance-trj.label")
 
