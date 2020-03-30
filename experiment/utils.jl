@@ -173,6 +173,7 @@ function createTLabel(region::SpatialRegion, trjfile::String,
                             write(tf, seq2str(seq))
                             push!(label, i)
                         end
+                    end
                 end
             else
                 break
