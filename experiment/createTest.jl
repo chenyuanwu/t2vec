@@ -40,8 +40,8 @@ end
 
 ## Creating test files for TSNE.
 start = 1_000_000+20_000
-length = 10
-variance = 15
+length = 100
+variance = 1
 tfile = joinpath(datapath, "len$length-var$variance-trj.t")
 labelfile = joinpath(datapath, "len$length-var$variance-trj.label")
 

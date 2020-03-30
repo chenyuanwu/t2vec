@@ -118,8 +118,10 @@ First downsampling and then distorting the trip, producing its 20 different vari
 """
 function downsamplingDistort(trip::Matrix, nsplit::Int)
     noisetrips = Matrix{Float64}[]
-    dropping_rates = [0, 0.1, 0.2, 0.3, 0.4]
-    distorting_rates = [0, 0.2, 0.4]
+    # dropping_rates = [0, 0.1, 0.2, 0.3, 0.4]
+    # distorting_rates = [0, 0.2, 0.4]
+    dropping_rates = [0.0]
+    distorting_rates = [0.0]
     for dropping_rate in dropping_rates
         noisetrip1 = downsampling(trip, dropping_rate)
         for distorting_rate in distorting_rates
