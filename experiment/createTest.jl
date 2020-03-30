@@ -42,10 +42,11 @@ end
 start = 1_000_000+20_000
 length = 100
 variance = 1
+do_split = true
 tfile = joinpath(datapath, "len$length-var$variance-trj.t")
 labelfile = joinpath(datapath, "len$length-var$variance-trj.label")
 
-createTLabel(region, "$datapath/$cityname.h5", downsamplingDistort, start, length; tfile=tfile, labelfile=labelfile)
+createTLabel(region, "$datapath/$cityname.h5", downsamplingDistort, start, length; do_split=do_split, tfile=tfile, labelfile=labelfile)
 
 ## Creating test files for similarity computation.
 # prefix = "exp1"

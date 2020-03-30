@@ -134,6 +134,7 @@ Creating trj.t trj.label for t2vec(). Useful for downstream tasks.
 function createTLabel(region::SpatialRegion, trjfile::String,
                       injectnoise::Function,
                       start::Int, querysize::Int;
+                      do_split=true,
                       tfile="trj.t", labelfile="trj.label",
                       min_length=30, max_length=100,
                       nsplit=5)
@@ -151,19 +152,27 @@ function createTLabel(region::SpatialRegion, trjfile::String,
             if nquery < querysize
                 if 2min_length <= size(trip, 2) <= 2max_length
                     nquery += 1
-                    trip1, timestamp1, trip2, timestamp2 = uniformsplit(trip, timestamp)
-                    noisetrips = injectnoise(trip1, nsplit)
-                    for noisetrip in noisetrips
-                        seq = trip2seq(region, noisetrip)
-                        write(tf, seq2str(seq))
-                        push!(label, i)
-                    end
-                    noisetrips = injectnoise(trip2, nsplit)
-                    for noisetrip in noisetrips
-                        seq = trip2seq(region, noisetrip)
-                        write(tf, seq2str(seq))
-                        push!(label, i)
-                    end
+                    if do_split
+                        trip1, timestamp1, trip2, timestamp2 = uniformsplit(trip, timestamp)
+                        noisetrips = injectnoise(trip1, nsplit)
+                        for noisetrip in noisetrips
+                            seq = trip2seq(region, noisetrip)
+                            write(tf, seq2str(seq))
+                            push!(label, i)
+                        end
+                        noisetrips = injectnoise(trip2, nsplit)
+                        for noisetrip in noisetrips
+                            seq = trip2seq(region, noisetrip)
+                            write(tf, seq2str(seq))
+                            push!(label, i)
+                        end
+                    else
+                        noisetrips = injectnoise(trip, nsplit)
+                        for noisetrip in noisetrips
+                            seq = trip2seq(region, noisetrip)
+                            write(tf, seq2str(seq))
+                            push!(label, i)
+                        end
                 end
             else
                 break
