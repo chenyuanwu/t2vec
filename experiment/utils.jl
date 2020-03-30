@@ -185,6 +185,19 @@ function createTLabel(region::SpatialRegion, trjfile::String,
     nothing
 end
 
+function extractTrips(region::SpatialRegion, trjfile::String,
+                      idxs::Vector{Int};
+                      tfile="trips.h5")
+    h5open(trjfile, "r") do f
+        tf = h5open(tfile, "w")
+        for idx in idxs
+            trip = read(f["/trips/$idx"])
+            tf["/trips/$idx"] = trip
+        end
+        close(tf)
+    end
+end
+
 function createEDLCSSInput(querydbfile::String; tfile="edlcss.t", labelfile="edlcss.label")
     querydbf = h5open(querydbfile, "r")
     label = Int[]
