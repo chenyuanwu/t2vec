@@ -38,11 +38,23 @@ else
     println("Cannot find $paramfile")
 end
 
-## Creating trj files for visulization in TSNE experiments
-idxs = [1020159, 1020151, 1020149, 1020229, 1020203, 1020209]
-tfile = joinpath(datapath, "trips.h5")
-extractTrips(region, "$datapath/$cityname.h5", idxs; tfile=tfile)
+## Creating test files for KMeans.
+start = 1_000_000+20_000
+length = 2000
+variance = 1
+do_split = false
+save_h5 = true
+tfile = joinpath(datapath, "len$length-var$variance-trj.t")
+labelfile = joinpath(datapath, "len$length-var$variance-trj.label")
+h5file = joinpath(datapath, "trips.h5")
 
+createTLabel(region, "$datapath/$cityname.h5", downsamplingDistort, start, length;
+             do_split=do_split, save_h5=save_h5, tfile=tfile, labelfile=labelfile, h5file=h5file)
+
+## Creating trj files for visulization in TSNE experiments
+# idxs = [1020159, 1020151, 1020149, 1020229, 1020203, 1020209]
+# h5file = joinpath(datapath, "trips.h5")
+# extractTrips(region, "$datapath/$cityname.h5", idxs; h5file=h5file)
 
 ## Creating test files for TSNE.
 # start = 1_000_000+20_000

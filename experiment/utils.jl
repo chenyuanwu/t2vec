@@ -134,12 +134,16 @@ Creating trj.t trj.label for t2vec(). Useful for downstream tasks.
 function createTLabel(region::SpatialRegion, trjfile::String,
                       injectnoise::Function,
                       start::Int, querysize::Int;
-                      do_split=true,
-                      tfile="trj.t", labelfile="trj.label",
+                      do_split=true, save_h5=false,
+                      tfile="trj.t", labelfile="trj.label", h5file="trips.h5",
                       min_length=30, max_length=100,
                       nsplit=5)
     seq2str(seq) = join(map(string, seq), " ") * "\n"
     println("Vocabulary size $(region.vocab_size)...")
+
+    if save_h5
+        h5f = h5open(h5file, "w")
+    end
 
     nquery = 0
     label = Int[]
@@ -153,6 +157,7 @@ function createTLabel(region::SpatialRegion, trjfile::String,
                 if 2min_length <= size(trip, 2) <= 2max_length
                     nquery += 1
                     if do_split
+                        @assert !save_h5 "h5 is only needed for original sequences."
                         trip1, timestamp1, trip2, timestamp2 = uniformsplit(trip, timestamp)
                         noisetrips = injectnoise(trip1, nsplit)
                         for noisetrip in noisetrips
@@ -167,11 +172,11 @@ function createTLabel(region::SpatialRegion, trjfile::String,
                             push!(label, i)
                         end
                     else
-                        noisetrips = injectnoise(trip, nsplit)
-                        for noisetrip in noisetrips
-                            seq = trip2seq(region, noisetrip)
-                            write(tf, seq2str(seq))
-                            push!(label, i)
+                        seq = trip2seq(region, trip)
+                        write(tf, seq2str(seq))
+                        push!(label, i)
+                        if save_h5
+                            h5f["/trips/$i"] = trip
                         end
                     end
                 end
@@ -182,19 +187,22 @@ function createTLabel(region::SpatialRegion, trjfile::String,
         close(tf)
     end
     writedlm(labelfile, label)
+    if save_h5
+        close(h5f)
+    end
     nothing
 end
 
 function extractTrips(region::SpatialRegion, trjfile::String,
                       idxs::Vector{Int};
-                      tfile="trips.h5")
+                      h5file="trips.h5")
     h5open(trjfile, "r") do f
-        tf = h5open(tfile, "w")
+        h5f = h5open(h5file, "w")
         for idx in idxs
             trip = read(f["/trips/$idx"])
-            tf["/trips/$idx"] = trip
+            h5f["/trips/$idx"] = trip
         end
-        close(tf)
+        close(h5f)
     end
 end
 
