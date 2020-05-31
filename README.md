@@ -1,4 +1,4 @@
-This repository contains the code used in my bachelor's theis paper "Trajectory big data: Efficient retrieval and data mining". My paper mainly consists of three parts: trajectory to vector(Table 2), trajectory dimension reduction(Figure 5~6) and trajectory clustering(Figure 7). If you want to reproduce my results, please see the guide below.
+This repository contains the code used in my bachelor's theis paper "Trajectory big data: Efficient retrieval and data mining". My paper mainly consists of three parts: trajectory to vector(Table 2), trajectory dimension reduction(Figure 5-6) and trajectory clustering(Figure 7). If you want to reproduce my results, please see the guide below.
 ## Requirements
 
 * Ubuntu OS
@@ -60,7 +60,7 @@ In our original experiment, the model was trained with a Tesla K40 GPU about 14 
 ### Encoding
 
 #### Create test files
-Note: different applications need different test files(i.e., experiments for self-similarity, trajectory dimension reduction and trajectory clustering). Please uncomment corresponding lines in `experiment/createTest.jl` to create the right test file. For self-similarity tests, please comment line 42~52 and uncomment line 70~85. Then run the following commands to create the test file.
+Note: different applications need different test files(i.e., experiments for self-similarity, trajectory dimension reduction and trajectory clustering). Please uncomment corresponding lines in `experiment/createTest.jl` to create the right test file. For self-similarity tests, please comment line 42-52 and uncomment line 70-85. Then run the following commands to create the test file.
 
 ```shell
 cd experiment
@@ -79,7 +79,7 @@ It will encode the trajectories in file `data/trj.t` into vectors which will be 
 
 #### Vector representation
 
-In our experiment we train a three-layers model and the last layer outputs are used as the trajectory representations, see the code in `experiment/experiment.jl`. To get our results in Table2, run `julia experiment.jl`.
+In our experiment we train a three-layers model and the last layer outputs are used as the trajectory representations, see the code in `experiment/experiment.jl`. To get our results in Table 2, run `julia experiment.jl`.
 
 ## Trajectory dimension reduction
 
