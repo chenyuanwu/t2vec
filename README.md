@@ -1,6 +1,3 @@
-
-This repository contains the code used in our **ICDE-18** paper [Deep Representation Learning for Trajectory Similarity Computation](http://www.ntu.edu.sg/home/lixiucheng/pdfs/icde18-t2vec.pdf).
-
 ## Requirements
 
 * Ubuntu OS
@@ -17,7 +14,7 @@ $ julia pkg-install.jl
 ```
 
 
-## Preprocessing
+### Preprocessing
 
 The preprocessing step will generate all data required in the training stage.
 
@@ -46,7 +43,7 @@ The preprocessing step will generate all data required in the training stage.
 
 The generated files for training are saved in `t2vec/data/`.
 
-## Training
+### Training
 
 ```shell
 $ python t2vec.py -data data -vocab_size 18866 -criterion_name "KLDIV" -knearestvocabs "data/porto-vocab-dist-cell100.h5"
@@ -59,9 +56,9 @@ The training produces two model `checkpoint.pt` and `best_model.pt`, `checkpoint
 In our original experiment, the model was trained with a Tesla K40 GPU about 14 hours so you can just terminate the training after 14 hours if you use a GPU that is as good as or better than K40, the above two models will be saved automatically.
 
 
-## Encoding
+### Encoding
 
-### Create test files
+#### Create test files
 
 ```bash
 cd experiment
@@ -74,7 +71,7 @@ head -5 ../data/trj.label # trajectory ids
 
 It will produce two files `data/trj.t` and `data/trj.label`. Each row of `trj.t` (`trj.label`) is a token representation of the orginal trajectory (trajectory ID).
 
-### Encode trajectories into vectors
+#### Encode trajectories into vectors
 
 ```shell
 $ python t2vec.py -data experiment -vocab_size 18866 -checkpoint "best_model.pt" -mode 2
@@ -82,7 +79,7 @@ $ python t2vec.py -data experiment -vocab_size 18866 -checkpoint "best_model.pt"
 
 It will encode the trajectories in file `experiment/trj.t` into vectors which will be saved into file `experiment/trj.h5`.
 
-### Vector representation
+#### Vector representation
 
 In our experiment we train a three-layers model and the last layer outputs are used as the trajectory representations, see the code in `experiment/experiment.jl`:
 
@@ -92,27 +89,4 @@ vecs = h5open(joinpath("", "trj.h5"), "r") do f
 end
 
 vecs[i] # the vector representation of i-th trajectory
-```
-
-## Reference
-
-```
-@inproceedings{DBLP:conf/icde/LiZCJW18,
-  author    = {Xiucheng Li and
-               Kaiqi Zhao and
-               Gao Cong and
-               Christian S. Jensen and
-               Wei Wei},
-  title     = {Deep Representation Learning for Trajectory Similarity Computation},
-  booktitle = {34th {IEEE} International Conference on Data Engineering, {ICDE} 2018,
-               Paris, France, April 16-19, 2018},
-  pages     = {617--628},
-  year      = {2018},
-  crossref  = {DBLP:conf/icde/2018},
-  url       = {https://doi.org/10.1109/ICDE.2018.00062},
-  doi       = {10.1109/ICDE.2018.00062},
-  timestamp = {Tue, 20 Nov 2018 10:20:00 +0100},
-  biburl    = {https://dblp.org/rec/bib/conf/icde/LiZCJW18},
-  bibsource = {dblp computer science bibliography, https://dblp.org}
-}
 ```
