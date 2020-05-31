@@ -1,3 +1,4 @@
+This repository contains the code used in my bachelor's theis paper "Trajectory big data: Efficient retrieval and data mining". My paper mainly consists of three parts: trajectory to vector(Table 2), trajectory dimension reduction(Figure 5~6) and trajectory clustering(Figure 7). If you want to reproduce my results, please see the guide below.
 ## Requirements
 
 * Ubuntu OS
@@ -5,14 +6,14 @@
 * Python >= 3.5 (Anaconda3 is recommended)
 * PyTorch 1.0+
 
-Please refer to the source code to install all required packages in Julia and Python.
+Please refer to the source code to install all other required packages in Julia and Python.
 
 You can install all packages involved for Julia by running,
 
 ```shell
 $ julia pkg-install.jl
 ```
-
+## t2vec
 
 ### Preprocessing
 
@@ -46,12 +47,12 @@ The generated files for training are saved in `t2vec/data/`.
 ### Training
 
 ```shell
-$ python t2vec.py -data data -vocab_size 18866 -criterion_name "KLDIV" -knearestvocabs "data/porto-vocab-dist-cell100.h5"
+$ python t2vec.py -data data -vocab_size 18864 -criterion_name "KLDIV" -knearestvocabs "data/porto-vocab-dist-cell100.h5"
 ```
 
-where 18866 is the output of last stage.
+where 18864 is the output of last stage.
 
-The training produces two model `checkpoint.pt` and `best_model.pt`, `checkpoint.pt` contains the latest trained model and `best_model.pt` saves the model which has the best performance on the validation data. You can find our saved `best_model.pt` [here]().
+The training produces two model `checkpoint.pt` and `best_model.pt`, `checkpoint.pt` contains the latest trained model and `best_model.pt` saves the model which has the best performance on the validation dataset.
 
 In our original experiment, the model was trained with a Tesla K40 GPU about 14 hours so you can just terminate the training after 14 hours if you use a GPU that is as good as or better than K40, the above two models will be saved automatically.
 
@@ -59,34 +60,35 @@ In our original experiment, the model was trained with a Tesla K40 GPU about 14 
 ### Encoding
 
 #### Create test files
+Note: different applications need different test files(i.e., experiments for self-similarity, trajectory dimension reduction and trajectory clustering). Please uncomment corresponding lines in `experiment/createTest.jl` to create the right test file. For self-similarity tests, please comment line 42~52 and uncomment line 70~85. Then run the following commands to create the test file.
 
-```bash
+```shell
 cd experiment
 
 julia createTest.jl
-
-head -5 ../data/trj.t # the first 5 trajectories
-head -5 ../data/trj.label # trajectory ids
 ```
 
 It will produce two files `data/trj.t` and `data/trj.label`. Each row of `trj.t` (`trj.label`) is a token representation of the orginal trajectory (trajectory ID).
 
 #### Encode trajectories into vectors
-
 ```shell
-$ python t2vec.py -data experiment -vocab_size 18866 -checkpoint "best_model.pt" -mode 2
+$ python t2vec.py -data data -vocab_size 18864 -checkpoint "best_model.pt" -mode 2
 ```
 
-It will encode the trajectories in file `experiment/trj.t` into vectors which will be saved into file `experiment/trj.h5`.
+It will encode the trajectories in file `data/trj.t` into vectors which will be saved into file `data/trj.h5`.
 
 #### Vector representation
 
-In our experiment we train a three-layers model and the last layer outputs are used as the trajectory representations, see the code in `experiment/experiment.jl`:
+In our experiment we train a three-layers model and the last layer outputs are used as the trajectory representations, see the code in `experiment/experiment.jl`. To get our results in Table2, run `julia experiment.jl`.
 
-```julia
-vecs = h5open(joinpath("", "trj.h5"), "r") do f
-    read(f["layer3"])
-end
+## Trajectory dimension reduction
 
-vecs[i] # the vector representation of i-th trajectory
-```
+In our paper, the tSNE mothod is performed after t2vec. Thus, please ensure that you have generated the proper test file and have encoded its trajectories into vectors`(.h5 file)`. 
+
+Run the jupyter notebook `manifold_learning.ipynb` and the figures will be plotted inline. Note the last code block in this notebook will generate a html file. If you want to see how the corresponding trajectories look like in a 2D map, please open the html file in your web browser.
+
+## Trajectory clustering 
+
+In our paper, the KMeans mothod is performed after t2vec and tSNE. Thus, please ensure that you have generated the proper test file and have encoded its trajectories into vectors`(.h5 file)`. 
+
+Run the jupyter notebook `clustering.ipynb` and the figures will be plotted inline. Note the last code block in this notebook will generate a html file. If you want to see how the corresponding trajectories look like in a 2D map, please open the html file in your web browser.
